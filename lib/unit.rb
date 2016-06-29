@@ -8,11 +8,16 @@ class Unit
   end
 
   def damage(attack_power)
-    @health_points -= attack_power
+    @health_points -= attack_power 
+    @health_points = 0 if dead?
   end
 
   def attack!(enemy)
-    enemy.damage(@attack_power)
+    dead? ? nil : enemy.damage(@attack_power)
+  end
+
+  def dead?
+    health_points <= 0
   end
 
 end

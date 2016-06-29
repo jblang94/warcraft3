@@ -9,4 +9,8 @@ class Footman < Unit
     super(FOOTMAN_MAX_HEALTH, FOOTMAN_MAX_ATTACK_POWER)
   end
 
+  def attack!(enemy) 
+    (enemy.is_a?(Barracks)) ? enemy.damage(FOOTMAN_MAX_ATTACK_POWER/2.ceil) : enemy.damage(FOOTMAN_MAX_ATTACK_POWER)
+  end
+
 end
