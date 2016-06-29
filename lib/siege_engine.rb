@@ -1,20 +1,30 @@
 class SiegeEngine < Unit
 
-  SIEGE_ENGINE_MAX_HEALTH = 400
-  SIEGE_ENGINE_MAX_ATTACK_POWER = 50
+  MAX_HEALTH = 400
+  MAX_ATTACK_POWER = 50
 
   def initialize
-    super(SIEGE_ENGINE_MAX_HEALTH, SIEGE_ENGINE_MAX_ATTACK_POWER)
+    super(MAX_HEALTH, MAX_ATTACK_POWER)
   end
 
   def attack!(enemy)
-    unless enemy.is_a?(Unit) && !enemy.is_a?(SiegeEngine)
+    unless protected_enemy?(enemy)
       if enemy.is_a?(Barracks)
-        enemy.damage(2 * SIEGE_ENGINE_MAX_ATTACK_POWER)
+        attack_barracks!(enemy)
       else
-        enemy.damage(SIEGE_ENGINE_MAX_ATTACK_POWER)
+        super(enemy)
       end
     end
+  end
+
+  private
+
+  def protected_enemy?(enemy)
+    enemy.is_a?(Unit) && !enemy.is_a?(SiegeEngine)
+  end
+
+  def attack_barracks!(barracks)
+    barracks.damage(2 * MAX_ATTACK_POWER) unless dead?
   end
 
 end

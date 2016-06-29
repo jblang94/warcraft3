@@ -22,19 +22,24 @@ describe SiegeEngine do
     it "should do 50 damage when attacking another SiegeEngine" do
       enemy = SiegeEngine.new
       damage_taken = 50
+      expect(enemy).to receive(:damage).with(damage_taken)
       @siege_engine.attack!(enemy)
-      expect(enemy.health_points).to eq(400 - damage_taken)
     end
 
     it "should do 100 damage when attacking Barracks" do
       enemy = Barracks.new
       damage_taken = 100
+      expect(enemy).to receive(:damage).with(damage_taken)
       @siege_engine.attack!(enemy)
-      expect(enemy.health_points).to eq(500 - damage_taken)
     end
 
-    it "should not attack a Unit that is not a SiegeEngine" do
+    it "should not attack a Unit" do
       enemy = Unit.new(50,50)
+      expect(@siege_engine.attack!(enemy)).to be nil
+    end
+
+    it "should not attack a Footman" do
+      enemy = Footman.new
       expect(@siege_engine.attack!(enemy)).to be nil
     end
   end

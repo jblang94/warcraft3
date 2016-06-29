@@ -2,15 +2,23 @@
 
 class Footman < Unit
 
-  FOOTMAN_MAX_HEALTH = 60
-  FOOTMAN_MAX_ATTACK_POWER = 10
+  MAX_HEALTH = 60
+  MAX_ATTACK_POWER = 10
 
   def initialize
-    super(FOOTMAN_MAX_HEALTH, FOOTMAN_MAX_ATTACK_POWER)
+    super(MAX_HEALTH, MAX_ATTACK_POWER)
   end
 
   def attack!(enemy) 
-    (enemy.is_a?(Barracks)) ? enemy.damage(FOOTMAN_MAX_ATTACK_POWER/2.ceil) : enemy.damage(FOOTMAN_MAX_ATTACK_POWER)
+    return super(enemy) unless enemy.is_a?(Barracks)
+    attack_barracks!(enemy)
   end
+
+  private
+
+  def attack_barracks!(barracks)
+    barracks.damage((MAX_ATTACK_POWER/2).ceil) unless dead?
+  end
+
 
 end

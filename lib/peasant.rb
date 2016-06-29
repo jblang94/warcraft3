@@ -1,10 +1,10 @@
 class Peasant < Unit
   
-  PEASANT_MAX_HEALTH_POINTS = 35
-  PEASANT_MAX_ATTACK_POWER = 0
+  MAX_HEALTH = 35
+  MAX_ATTACK_POWER = 0
 
   def initialize
-    super(PEASANT_MAX_HEALTH_POINTS, PEASANT_MAX_ATTACK_POWER)
+    super(MAX_HEALTH, MAX_ATTACK_POWER)
   end
 
 end
